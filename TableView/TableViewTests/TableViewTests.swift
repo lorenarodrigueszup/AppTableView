@@ -20,17 +20,68 @@ class TableViewTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+    func testTaskManagerInsertTask() {
+        let t1 = Task()
+        t1.id = 1
+        t1.name = "t1"
+        t1.description = "t1 desc"
+
+        TaskManager.shared.saveOrUpdate(task: t1)
+        let foundTask = TaskManager.shared.getTask(with: t1.id)
+        XCTAssert(foundTask != nil)
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+
+    func testTaskManagerGetTaskById() {
+        let t1 = Task()
+        t1.id = 1
+        t1.name = "t1"
+        t1.description = "t1 desc"
+
+        TaskManager.shared.saveOrUpdate(task: t1)
+        let foundTask = TaskManager.shared.getTask(with: t1.id)
+        XCTAssert(foundTask != nil)
+    }
+
+    func testTaskManagerUpdateTask() {
+
+        let t1 = Task()
+        t1.id = 1
+        t1.name = "t1"
+        t1.description = "t1 desc"
+
+        TaskManager.shared.saveOrUpdate(task: t1)
+
+        t1.name = "edited name t1"
+        TaskManager.shared.saveOrUpdate(task: t1)
+
+        let foundTask = TaskManager.shared.getTask(with: t1.id)
+        XCTAssert(foundTask?.name == "edited name t1")
+    }
+
+    func testTaskManagerDeleteTask() {
+        let t1 = Task()
+        t1.id = 1
+        t1.name = "t1"
+        t1.description = "t1 desc"
+
+        TaskManager.shared.saveOrUpdate(task: t1)
+        let foundTask = TaskManager.shared.getTask(with: t1.id)
+        XCTAssert(foundTask != nil)
+
+        _ = TaskManager.shared.remove(task: t1)
+        XCTAssert(foundTask == nil)
+    }
+
+    func testTaskManagerDeleteAllTasks() {
+        let t1 = Task()
+        t1.id = 1
+        t1.name = "t1"
+        t1.description = "t1 desc"
+
+        TaskManager.shared.saveOrUpdate(task: t1)
+        TaskManager.shared.removeAll()
+        XCTAssert(TaskManager.shared.tasks.count == 0)
     }
     
 }
