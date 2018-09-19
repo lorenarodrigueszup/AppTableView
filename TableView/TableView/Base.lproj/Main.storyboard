@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pbv-te-AvV">
-                                <rect key="frame" x="0.0" y="64" width="375" height="545"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="589"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellId" id="N3O-PJ-oVr" customClass="TaskTableViewCell" customModule="TableView" customModuleProvider="target">
@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnP-8x-D9R">
-                                                    <rect key="frame" x="-5.5" y="12" width="146" height="21"/>
+                                                    <rect key="frame" x="22" y="12" width="146" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="2ak-cU-GzI"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="146" id="rEf-a0-dgY"/>
@@ -40,7 +40,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqU-VQ-y1j">
-                                                    <rect key="frame" x="179.5" y="12" width="146" height="21"/>
+                                                    <rect key="frame" x="207" y="12" width="146" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="146" id="HTA-9d-ost"/>
                                                     </constraints>
@@ -155,6 +155,7 @@
                                 <connections>
                                     <action selector="buttonSalvar:" destination="Esy-gK-nGo" eventType="touchUpInside" id="U0P-No-5Iu"/>
                                     <action selector="buttonSalvar:" destination="oQ4-BD-hT9" eventType="touchUpInside" id="dMW-WC-Rwz"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="SaveSegue" id="Nw6-RY-PvZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DX0-9a-4Pc">
@@ -169,6 +170,7 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonExcluir:" destination="oQ4-BD-hT9" eventType="touchUpInside" id="VoB-Ir-90r"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="DeletSegue" id="HFR-Ah-mbN"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4mX-T3-ASl">
@@ -232,6 +234,7 @@
                         <viewLayoutGuide key="safeArea" id="llI-nZ-bZX"/>
                     </view>
                     <connections>
+                        <outlet property="buttonExcluir" destination="DX0-9a-4Pc" id="hYT-Ph-3cC"/>
                         <outlet property="datePicker" destination="HPB-G7-haE" id="acT-r5-co7"/>
                         <outlet property="descricaoLabel" destination="w41-VE-Q0H" id="ezB-Nv-HJ3"/>
                         <outlet property="tarefaLabel" destination="mTu-DG-Yvl" id="uBG-HQ-7Mn"/>
@@ -265,5 +268,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="vcI-Mq-NRW"/>
+        <segue reference="Nw6-RY-PvZ"/>
     </inferredMetricsTieBreakers>
 </document>

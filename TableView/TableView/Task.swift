@@ -16,13 +16,11 @@ class Task {
     var stringData : String = ""
     
     init(nomeTarefa: String, stringData: String, descricao: String) {
-        //self.id += 1
         self.nomeTarefa = nomeTarefa
         self.descricao = descricao
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-        self.data =  dateFormatter.date(from: stringData)!
-        689
+        self.data =  dateFormatter.date(from: stringData) ?? Date()
         
     }
 }

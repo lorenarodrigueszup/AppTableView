@@ -11,6 +11,7 @@ import UIKit
 class DetailsView: UIViewController {
 
     var selectedTask : Task?
+    var tasks = [Task]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,27 +42,67 @@ class DetailsView: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tarefaLabel.text = self.selectedTask?.nomeTarefa
-        datePicker.date = (self.selectedTask?.data)!
-        descricaoLabel.text = self.selectedTask?.descricao
+        datePicker.date = (selectedTask?.data)!
+        tarefaLabel.text = selectedTask?.nomeTarefa
+        descricaoLabel.text = selectedTask?.descricao
         
     }
     
     @IBAction func buttonExcluir(_ sender: Any) {
-
+        let indice : Int = tasks.index(where: {$0.id == selectedTask?.id})!
+        tasks.remove(at: indice)
     }
     
+    @IBOutlet weak var buttonExcluir: UIButton!
+    
+    
     @IBOutlet weak var textFieldTarefa: UITextField!
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        self.view.endEditing(true)
+        
+        return true
+        
+    }
     
     @IBOutlet weak var textFieldDescricao: UITextField!
     
     @IBAction func buttonSalvar(_ sender: Any) {
-        self.selectedTask?.descricao = textFieldDescricao.text!
-        self.selectedTask?.nomeTarefa = textFieldTarefa.text!
-        self.selectedTask?.data = datePicker.date
+        if textFieldDescricao.text != "" {
+            selectedTask?.descricao = textFieldDescricao.text!
+        }
+
+        if textFieldTarefa.text != "" {
+            selectedTask?.nomeTarefa = textFieldTarefa.text!
+        }
+        
+        selectedTask?.data = datePicker.date
+
+        
+        for task in tasks {
+            if task.id == selectedTask?.id {
+                let indice : Int = tasks.index(where: {$0.id == selectedTask?.id})!
+                tasks[indice] = selectedTask!
+            } else if (selectedTask?.id)! >= tasks.count {
+                if let task = selectedTask {
+                    tasks.append(task)
+                }
+                
+            }
+            
+        }
+        
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SaveSegue" || segue.identifier == "DeletSegue" {
+            if let destinationVC = segue.destination as? ViewController {
+                destinationVC.tasks = self.tasks  
+            }
+        }
+    }
 
     
     
