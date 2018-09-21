@@ -8,15 +8,32 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , DetailsViewDelegate{
 
     @IBOutlet weak var tableView: UITableView!
 
-    
     var tasks = [Task]()
     var selectedTask : Task?
     let dateFormatter = DateFormatter()
     
+    func didUpdate(task: Task) {
+        for currentTask in tasks {
+            if currentTask.id == task.id {
+                let indice : Int = tasks.index(where: {$0.id == selectedTask?.id})!
+                tasks[indice] = task
+            }
+            
+        }
+
+        tableView.reloadData()
+    }
+    
+    func shouldDeletTask(task: Task) {
+        if let indice  = tasks.index(where: {$0.id == selectedTask?.id}) {
+            tasks.remove(at: indice)
+        }
+        tableView.reloadData()
+    }
     
     func adicionaTarefas() {
         tasks.append(Task(nomeTarefa: "Ir ao supermercado", stringData:"21-09-2018", descricao: "Ir ao supermercado Carrefour a noite"))
@@ -29,11 +46,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func awakeFromNib() {
         adicionaTarefas()
+        // Do any additional setup after loading the view, typically from a nib.
     }
     
 
@@ -59,42 +73,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedTask = tasks[indexPath.row]
+        performSegue(withIdentifier: "ShowTaskSegue", sender: self)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTaskSegue"
         {
             if let destinationVC = segue.destination as? DetailsView {
-               let indexPath = tableView.indexPathForSelectedRow
-                  selectedTask = tasks[(indexPath?.row)!]
-                  destinationVC.selectedTask = selectedTask
-                  destinationVC.tasks = tasks
+                destinationVC.selectedTask = selectedTask
+                destinationVC.delegate = self
             }
         }
         
-        if segue.identifier == "SegueCriar"
-        {
-            if let destinationVC = segue.destination as? DetailsView {
-                dateFormatter.dateFormat = "dd-MM-yyyy"
-                selectedTask = Task(nomeTarefa: "", stringData: "", descricao: "")
-                selectedTask?.id = tasks.count
-                destinationVC.selectedTask = self.selectedTask
-                destinationVC.tasks = self.tasks
-                
-           }
-
-        }
-
-        
     }
 
-    
     @IBAction func buttonCriar(_ sender: Any) {
-        
+        let newElement = Task(nomeTarefa: "", stringData: "", descricao: "")
+        tasks.append(newElement)
+        selectedTask = newElement
+        performSegue(withIdentifier: "ShowTaskSegue", sender: self)
      }
-    
-        
-    
-
     
 }
 
