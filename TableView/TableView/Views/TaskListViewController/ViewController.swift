@@ -8,45 +8,31 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource , DetailsViewDelegate{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DetailsViewDelegate {
+    
 
     @IBOutlet weak var tableView: UITableView!
 
-    var tasks = [Task]()
-    var selectedTask : Task?
-    let dateFormatter = DateFormatter()
+
+    var task : Task?
+    var taskManager : TaskManager = TaskManager()
     
     func didUpdate(task: Task) {
-        for currentTask in tasks {
-            if currentTask.id == task.id {
-                let indice : Int = tasks.index(where: {$0.id == selectedTask?.id})!
-                tasks[indice] = task
-            }
-            
-        }
-
+        taskManager.saveOrUpdate(task: task)
         tableView.reloadData()
     }
     
-    func shouldDeletTask(task: Task) {
-        if let indice  = tasks.index(where: {$0.id == selectedTask?.id}) {
-            tasks.remove(at: indice)
-        }
+    func shouldDeleteTask(task: Task) {
+        let _ = taskManager.deleteTask(task: task)
+        
+        
         tableView.reloadData()
     }
-    
-    func adicionaTarefas() {
-        tasks.append(Task(nomeTarefa: "Ir ao supermercado", stringData:"21-09-2018", descricao: "Ir ao supermercado Carrefour a noite"))
-        tasks.append(Task(nomeTarefa: "Ir ao médico", stringData:"15-09-2018", descricao: "Médico de vista" ))
-        tasks.append(Task(nomeTarefa: "Ir à academia", stringData: "05-10-2018", descricao: "Treino de perna"))
-    }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        adicionaTarefas()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -57,16 +43,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return taskManager.tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId")!
         if let cell = cell as? TaskTableViewCell {
-            cell.nomeTask.text = tasks[indexPath.row].nomeTarefa
-            dateFormatter.dateFormat = "dd-MM-yyyy"
-            cell.dataTask.text = dateFormatter.string(from: tasks[indexPath.row].data)
-            tasks[indexPath.row].id = indexPath.row
+            cell.nameTask.text = taskManager.tasks[indexPath.row].nameTask
+            cell.dateTask.text = Task.stringFromDate(date: taskManager.tasks[indexPath.row].date)
             
         }
 
@@ -74,7 +58,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTask = tasks[indexPath.row]
+        task = taskManager.tasks[indexPath.row]
         performSegue(withIdentifier: "ShowTaskSegue", sender: self)
     }
     
@@ -82,17 +66,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "ShowTaskSegue"
         {
             if let destinationVC = segue.destination as? DetailsView {
-                destinationVC.selectedTask = selectedTask
+                destinationVC.task = task
                 destinationVC.delegate = self
             }
         }
         
     }
 
-    @IBAction func buttonCriar(_ sender: Any) {
-        let newElement = Task(nomeTarefa: "", stringData: "", descricao: "")
-        tasks.append(newElement)
-        selectedTask = newElement
+    @IBAction func buttonCriate(_ sender: Any) {
+        task =  Task()
         performSegue(withIdentifier: "ShowTaskSegue", sender: self)
      }
     

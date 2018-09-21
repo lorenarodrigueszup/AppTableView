@@ -10,24 +10,26 @@ import Foundation
 import Darwin
 
 class Task {
-    var id : Int = 0
-    var nomeTarefa : String = ""
-    var data : Date = Date()
-    var descricao : String = ""
-    var stringData : String = ""
+    var id : Int?
+    var nameTask : String = ""
+    var date : Date = Date()
+    var description : String = ""
     
-    
-    init(nomeTarefa: String, stringData: String, descricao: String) {
-        self.id = Int(arc4random_uniform(1000))
-        self.nomeTarefa = nomeTarefa
-        self.descricao = descricao
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        self.data =  dateFormatter.date(from: stringData) ?? Date()
-
+    static func stringFromDate(date: Date) -> String {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy"
+        return df.string(from: date)
     }
     
-
+    static func dateFromString(dateString: String) -> Date {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy"
+        return df.date(from: dateString) ?? Date()
+    }
+    
+    func dateString() -> String {
+        return Task.stringFromDate(date: date)
+    }
     
     
 }

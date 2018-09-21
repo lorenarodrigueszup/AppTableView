@@ -9,14 +9,14 @@
 import UIKit
 
 protocol DetailsViewDelegate {
-    func didUpdate(task : Task)
+    func didUpdate(task:Task)
     
-    func shouldDeletTask(task: Task)
+    func shouldDeleteTask(task: Task)
 }
 
 class DetailsView: UIViewController {
 
-    var selectedTask : Task?
+    var task : Task?
     var delegate : DetailsViewDelegate?
     
     override func viewDidLoad() {
@@ -31,13 +31,13 @@ class DetailsView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if selectedTask?.nomeTarefa == "" {
-            buttonExcluir.isHidden = true
+        if task?.nameTask == "" {
+            buttonDelete.isHidden = true
         }
         
-        datePicker.date = (selectedTask?.data) ?? Date()
-        tarefaLabel.text = selectedTask?.nomeTarefa
-        descricaoLabel.text = selectedTask?.descricao
+        datePicker.date = (task?.date) ?? Date()
+        taskLabel.text = task?.nameTask ?? ""
+        descriptionLabel.text = task?.description ?? ""
         
         
     }
@@ -54,48 +54,47 @@ class DetailsView: UIViewController {
         
     }
     
-    @IBOutlet weak var tarefaLabel: UILabel!
+    @IBOutlet weak var taskLabel: UILabel!
     
-    @IBOutlet weak var descricaoLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
 
-    @IBAction func buttonSalvar(_ sender: Any) {
+    @IBAction func buttonSave(_ sender: Any) {
         
-        if textFieldDescricao.text != "" {
-            selectedTask?.descricao = textFieldDescricao.text!
+        if textFieldDescription.text != "" {
+            task?.description = textFieldDescription.text!
         }
         
-        if textFieldTarefa.text != "" {
-            selectedTask?.nomeTarefa = textFieldTarefa.text!
+        if textFieldTask.text != "" {
+            task?.nameTask = textFieldTask.text!
         }
         
-        selectedTask?.data = datePicker.date
+        task?.date = datePicker.date
         
-        if let task = selectedTask {
-            self.delegate?.didUpdate(task: task)
+        if let updatedTask = task {
+            self.delegate?.didUpdate(task: updatedTask)
         }
         
         self.navigationController?.popViewController(animated: true)
     }
-    
-    @IBAction func buttonExcluir(_ sender: Any) {
-        if let task = selectedTask {
-            delegate?.shouldDeletTask(task: task)
+
+    @IBAction func buttonDelete(_ sender: Any) {
+        if let deletedTask = task {
+            delegate?.shouldDeleteTask(task: deletedTask)
         }
         
         self.navigationController?.popViewController(animated: true)
-        if let task = selectedTask {
-            self.delegate?.didUpdate(task: task)
-        }
+        
     }
     
-    @IBOutlet weak var buttonExcluir: UIButton!
+  
+    @IBOutlet weak var buttonDelete: UIButton!
     
     
-    @IBOutlet weak var textFieldTarefa: UITextField!
+    @IBOutlet weak var textFieldTask: UITextField!
     
     
-    @IBOutlet weak var textFieldDescricao: UITextField!
+    @IBOutlet weak var textFieldDescription: UITextField!
     
     
 

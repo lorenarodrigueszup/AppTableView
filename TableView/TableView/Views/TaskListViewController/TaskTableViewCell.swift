@@ -11,9 +11,9 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var nomeTask: UILabel!
+    @IBOutlet weak var nameTask: UILabel!
     
-    @IBOutlet weak var dataTask: UILabel!
+    @IBOutlet weak var dateTask: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

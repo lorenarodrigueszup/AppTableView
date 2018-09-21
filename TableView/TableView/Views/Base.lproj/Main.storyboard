@@ -57,8 +57,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="dataTask" destination="UqU-VQ-y1j" id="qZU-ST-Y8C"/>
-                                            <outlet property="nomeTask" destination="VnP-8x-D9R" id="dhe-7J-IVK"/>
+                                            <outlet property="dateTask" destination="UqU-VQ-y1j" id="oA1-n4-MZb"/>
+                                            <outlet property="nameTask" destination="VnP-8x-D9R" id="JRS-Q3-wfL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -68,7 +68,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Criar"/>
                                 <connections>
-                                    <action selector="buttonCriar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8i0-r1-Apo"/>
+                                    <action selector="buttonCriate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Ve-8k-1u3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -142,9 +142,6 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <connections>
-                                                    <action selector="TextTarefa:" destination="Esy-gK-nGo" eventType="editingDidEnd" id="cyD-KR-Zr2"/>
-                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descrição:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCM-1K-hVM">
                                                 <rect key="frame" x="0.0" y="152" width="375" height="20.5"/>
@@ -152,7 +149,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbd-K9-xa1">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descrição" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbd-K9-xa1">
                                                 <rect key="frame" x="0.0" y="192.5" width="375" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -163,9 +160,6 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                <connections>
-                                                    <action selector="TextDescricao:" destination="Esy-gK-nGo" eventType="editingDidEnd" id="BR2-lV-Fup"/>
-                                                </connections>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="NTV-sA-CTE">
                                                 <rect key="frame" x="0.0" y="549.5" width="375" height="36"/>
@@ -177,7 +171,7 @@
                                                             <color key="titleColor" red="1" green="0.066076453849999994" blue="0.14510528750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="buttonExcluir:" destination="oQ4-BD-hT9" eventType="touchUpInside" id="UBN-FM-j9t"/>
+                                                            <action selector="buttonDelete:" destination="oQ4-BD-hT9" eventType="touchUpInside" id="QHf-WA-VRI"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqI-2H-5Wh">
@@ -185,8 +179,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                         <state key="normal" title="Salvar"/>
                                                         <connections>
-                                                            <action selector="buttonSalvar:" destination="Esy-gK-nGo" eventType="touchUpInside" id="EeW-VY-Enj"/>
-                                                            <action selector="buttonSalvar:" destination="oQ4-BD-hT9" eventType="touchUpInside" id="Gkg-eq-s4N"/>
+                                                            <action selector="buttonSave:" destination="oQ4-BD-hT9" eventType="touchUpInside" id="V83-Dv-0Mf"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -246,16 +239,15 @@
                         <viewLayoutGuide key="safeArea" id="llI-nZ-bZX"/>
                     </view>
                     <connections>
-                        <outlet property="buttonExcluir" destination="hQ6-ba-jDd" id="5pN-s6-Sdz"/>
+                        <outlet property="buttonDelete" destination="hQ6-ba-jDd" id="48X-FZ-vLj"/>
                         <outlet property="datePicker" destination="fsQ-qB-YMh" id="IX3-fM-K8u"/>
-                        <outlet property="descricaoLabel" destination="bbd-K9-xa1" id="A2a-BG-caQ"/>
-                        <outlet property="tarefaLabel" destination="DRi-Fr-Y7x" id="YpM-EB-auP"/>
-                        <outlet property="textFieldDescricao" destination="B9C-0c-GTQ" id="RrK-ZX-gSY"/>
-                        <outlet property="textFieldTarefa" destination="jyv-0g-R2f" id="l4H-su-9VX"/>
+                        <outlet property="descriptionLabel" destination="bbd-K9-xa1" id="hNd-oC-Tsj"/>
+                        <outlet property="taskLabel" destination="DRi-Fr-Y7x" id="tpi-L8-f2V"/>
+                        <outlet property="textFieldDescription" destination="B9C-0c-GTQ" id="TK9-bm-mPp"/>
+                        <outlet property="textFieldTask" destination="jyv-0g-R2f" id="AgB-Oc-tiv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RDn-dp-eLg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Esy-gK-nGo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2224.8000000000002" y="775.86206896551732"/>
         </scene>
