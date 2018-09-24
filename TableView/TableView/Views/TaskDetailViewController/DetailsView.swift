@@ -37,7 +37,7 @@ class DetailsView: UIViewController {
         
         datePicker.date = (task?.date) ?? Date()
         taskLabel.text = task?.nameTask ?? ""
-        descriptionLabel.text = task?.description ?? ""
+        descriptionLabel.text = task?.descriptionTask ?? ""
         
         
     }
@@ -62,7 +62,7 @@ class DetailsView: UIViewController {
     @IBAction func buttonSave(_ sender: Any) {
         
         if textFieldDescription.text != "" {
-            task?.description = textFieldDescription.text!
+            task?.descriptionTask = textFieldDescription.text!
         }
         
         if textFieldTask.text != "" {

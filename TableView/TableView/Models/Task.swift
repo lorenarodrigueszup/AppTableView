@@ -9,11 +9,30 @@
 import Foundation
 import Darwin
 
-class Task {
+class Task : NSObject, NSCoding{
+    
+    override init() {
+        
+    }
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(nameTask, forKey: "nameTask")
+        aCoder.encode(date, forKey: "dateTask")
+        aCoder.encode(descriptionTask, forKey: "DescriptionTask")
+        aCoder.encode(id, forKey: "idTask")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.nameTask = aDecoder.decodeObject(forKey: "nameTask") as? String ?? String()
+        self.date = aDecoder.decodeObject(forKey: "dateTask") as? Date ?? Date()
+        self.descriptionTask = aDecoder.decodeObject(forKey: "DescriptionTask") as? String ?? String()
+        self.id = aDecoder.decodeObject(forKey: "IdTask") as? Int
+    }
+    
     var id : Int?
     var nameTask : String = ""
     var date : Date = Date()
-    var description : String = ""
+    var descriptionTask : String = ""
+    
     
     static func stringFromDate(date: Date) -> String {
         let df = DateFormatter()
@@ -33,7 +52,3 @@ class Task {
     
     
 }
-
-
-
-

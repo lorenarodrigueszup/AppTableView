@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func didUpdate(task: Task) {
         taskManager.saveOrUpdate(task: task)
+        taskManager.save()
         tableView.reloadData()
     }
     
@@ -33,6 +34,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        //taskManager.load()
+        tableView.reloadData()
+
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -41,6 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskManager.tasks.count
@@ -60,6 +65,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         task = taskManager.tasks[indexPath.row]
         performSegue(withIdentifier: "ShowTaskSegue", sender: self)
+        //taskManager.save()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

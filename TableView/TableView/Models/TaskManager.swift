@@ -12,8 +12,11 @@ import UIKit
 class TaskManager {
     
     public static let shared = TaskManager()
-    
-    var tasks: [Task] = [Task]()
+    private(set) var tasks: [Task] = [Task]()
+    let defaults = UserDefaults.standard
+    init() {
+        load()
+    }
     
     func generateId() -> Int {
         return Int(arc4random())
@@ -39,15 +42,18 @@ class TaskManager {
             tasks[index] = task
         } else {
             tasks.append(task)
+            
         }
-        
+        save()
     }
     
     func deleteTask(task: Task) -> Bool {
         if let index  = tasks.index(where: {$0.id == task.id}) {
             tasks.remove(at: index)
+            save()
             return true
         }
+        save()
         return false
     }
     
@@ -57,6 +63,20 @@ class TaskManager {
         }
         return nil
     }
+    
+    
+    func save() {
+        let encodedData = NSKeyedArchiver.archivedData(withRootObject: tasks)
+        defaults.set(encodedData, forKey: "tasks")
+        defaults.synchronize()
+    }
+    
+    func load() {
+        let decodedArray = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "tasks") as? Data ?? Data()) as? [Task] ?? [Task]()
+        tasks = decodedArray
+
+    }
+
     
     
 }
