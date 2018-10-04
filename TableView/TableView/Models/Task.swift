@@ -11,28 +11,41 @@ import Darwin
 
 class Task : NSObject, NSCoding{
     
+    
+    // MARK: - NSCoder User Defaults
     override init() {
         
     }
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(nameTask, forKey: "nameTask")
-        aCoder.encode(date, forKey: "dateTask")
-        aCoder.encode(descriptionTask, forKey: "DescriptionTask")
-        aCoder.encode(id, forKey: "idTask")
+        aCoder.encode(nameTask, forKey: "taskName")
+        aCoder.encode(date, forKey: "taskDate")
+        aCoder.encode(descriptionTask, forKey: "taskDescription")
+        aCoder.encode(id, forKey: "taskId")
+        aCoder.encode(hour, forKey: "taskHour")
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.nameTask = aDecoder.decodeObject(forKey: "nameTask") as? String ?? String()
-        self.date = aDecoder.decodeObject(forKey: "dateTask") as? Date ?? Date()
-        self.descriptionTask = aDecoder.decodeObject(forKey: "DescriptionTask") as? String ?? String()
-        self.id = aDecoder.decodeObject(forKey: "IdTask") as? Int
+        self.nameTask = aDecoder.decodeObject(forKey: "taskName") as? String ?? String()
+        self.date = aDecoder.decodeObject(forKey: "taskDate") as? Date ?? Date()
+        self.descriptionTask = aDecoder.decodeObject(forKey: "taskDescription") as? String ?? String()
+        self.id = aDecoder.decodeObject(forKey: "taskId") as? Int
+        self.hour = aDecoder.decodeObject(forKey: "taskHour") as? String ?? String()
     }
+    
+    
+    // MARK: - Variáveis
     
     var id : Int?
     var nameTask : String = ""
     var date : Date = Date()
+    var hour : String = String()
     var descriptionTask : String = ""
     
+    var notificationId : String = ""
+    
+
+    
+    // MARK: - Métodos
     
     static func stringFromDate(date: Date) -> String {
         let df = DateFormatter()
@@ -49,6 +62,14 @@ class Task : NSObject, NSCoding{
     func dateString() -> String {
         return Task.stringFromDate(date: date)
     }
+    
+    func timeFromString(timeString: String) -> Date {
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm"
+        return df.date(from: timeString) ?? Date()
+    }
+    
+
     
     
 }

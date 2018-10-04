@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
         // Override point for customization after application launch.
+//        TaskManager.schedulePushNotification(date: Date())
         return true
     }
 
@@ -39,8 +41,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
     }
+    
+    
 
+//    - (void)handleNotificationWithApplication:(UIApplication )application withUserInfo:(NSDictionary )userInfo {
+//
+//    DLog(@"%s %@", _PRETTY_FUNCTION_, userInfo);
+//
+//    if (application.applicationState == UIApplicationStateActive) {
+//    NSDictionary *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+//    UIViewController *topViewController = [UIViewController zp_topViewController];
+//    NSString *title = [alert objectForKey:@"title"];
+//    NSString *body = [alert objectForKey:@"body"];
+//    [UIAlertHelper showConfirmationAlertInController:topViewController title:title message:body];
+//    }
+//
+//    NSDictionary *metadata = userInfo[@"metadata"];
+//    NSString *pushID = metadata[@"pushId"];
+//    [[ServicesApiClient defaultClient] notifyPushReceivedSync:pushID];
+//    }
+//
+//    #pragma mark - UNUserNotificationCenterDelegate
+//
+//    - (void)userNotificationCenter:(UNUserNotificationCenter )center willPresentNotification:(UNNotification )notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+//
+//    UNNotificationContent *content = notification.request.content;
+//    NSMutableDictionary *userInfo = [@{} mutableCopy];
+//    NSDictionary *alert = @{ @"title": content.title ?: @"", @"body": content.body ?: @"" };
+//    userInfo[@"aps"] = @{ @"alert": alert };
+//
+//    UIApplication *application = [UIApplication sharedApplication];
+//    [self handleNotificationWithApplication:application withUserInfo:userInfo];
+//    }
 
 }
 

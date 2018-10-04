@@ -11,10 +11,13 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var nameTask: UILabel!
+    // MARK: - IBOutlet
     
+    @IBOutlet weak var nameTask: UILabel!
     @IBOutlet weak var dateTask: UILabel!
     
+    
+    // MARK: - Métodos
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

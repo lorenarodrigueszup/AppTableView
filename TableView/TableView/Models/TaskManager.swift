@@ -8,12 +8,19 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 class TaskManager {
+    
+    
+    // MARK: - Variáveis
     
     public static let shared = TaskManager()
     private(set) var tasks: [Task] = [Task]()
     let defaults = UserDefaults.standard
+    
+    // MARK: - Métodos
+    
     init() {
         load()
     }
@@ -45,12 +52,14 @@ class TaskManager {
             
         }
         save()
+        Notification.schedulePushNotification(task)
     }
     
     func deleteTask(task: Task) -> Bool {
         if let index  = tasks.index(where: {$0.id == task.id}) {
             tasks.remove(at: index)
             save()
+            Notification.deleteNotification(notificationId: task.notificationId)
             return true
         }
         save()
@@ -64,6 +73,12 @@ class TaskManager {
         return nil
     }
     
+    
+    func scheduleTasks(){
+        for task in tasks {
+            Notification.schedulePushNotification(task)
+        }
+    }
     
     func save() {
         let encodedData = NSKeyedArchiver.archivedData(withRootObject: tasks)
